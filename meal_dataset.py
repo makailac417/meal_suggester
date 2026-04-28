@@ -221,7 +221,6 @@ VALID_COSTS = ("cheap", "medium", "expensive")
  
  
 def suggest_meal(max_time: int, cost: str, exclude: list[str]) -> dict | None:
-    """Return a random meal matching constraints, excluding already-seen meals."""
     filtered = [
         m for m in MEALS
         if m["time"] <= max_time and m["cost"] == cost and m["name"] not in exclude
@@ -230,7 +229,6 @@ def suggest_meal(max_time: int, cost: str, exclude: list[str]) -> dict | None:
  
  
 def print_meal(meal: dict) -> None:
-    """Pretty-print a meal suggestion with its ingredients."""
     print(f"\n  🍴  {meal['name']}")
     print("  " + "-" * (len(meal["name"]) + 5))
     print("  Ingredients:")
@@ -240,7 +238,6 @@ def print_meal(meal: dict) -> None:
  
  
 def get_time_input() -> int:
-    """Prompt the user for a valid cooking time in minutes."""
     while True:
         raw = input("How many minutes do you have to cook? ").strip()
         if raw.isdigit() and int(raw) > 0:
@@ -249,7 +246,6 @@ def get_time_input() -> int:
  
  
 def get_cost_input() -> str:
-    """Prompt the user for a valid budget tier."""
     options = ", ".join(VALID_COSTS)
     while True:
         raw = input(f"What's your budget? ({options}): ").strip().lower()
@@ -271,10 +267,10 @@ def main() -> None:
  
         if not meal:
             if seen:
-                print("\n  You've seen every meal that fits — no more options left!")
+                print("\nYou've seen every meal that fits — no more options left!")
             else:
                 print(
-                    f"\n  No meals found for '{cost_tier}' budget within {time_limit} minutes.\n"
+                    f"\nNo meals found for '{cost_tier}' budget within {time_limit} minutes.\n"
                     "  Try increasing your time or adjusting your budget."
                 )
             break
@@ -291,7 +287,6 @@ def main() -> None:
         elif answer in ("q", "quit"):
             print("  No worries — maybe order out tonight! 😄\n")
             break
-        # anything else (n / no / enter) → loop and suggest another
  
  
 if __name__ == "__main__":
